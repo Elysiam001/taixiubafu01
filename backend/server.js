@@ -23,25 +23,15 @@ const allowedOrigins = [
 
 const io = new Server(server, {
   cors: {
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin) || origin.includes("vercel.app")) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
+    origin: "*", // Cho phép tất cả để test nhanh
     methods: ["GET", "POST"]
   }
 });
 
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin) || origin.includes("vercel.app")) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  }
+  origin: "*", // Cho phép tất cả để test nhanh
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Content-Type", "x-auth-token"]
 }));
 app.use(express.json());
 

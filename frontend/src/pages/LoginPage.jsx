@@ -22,7 +22,12 @@ const LoginPage = () => {
       }
       navigate('/');
     } catch (err) {
-      setError(err.response?.data?.msg || 'Có lỗi xảy ra');
+      console.error("Login/Register Error:", err);
+      if (err.code === 'ERR_NETWORK') {
+        setError('Không thể kết nối đến máy chủ. Hãy kiểm tra VITE_API_URL trong Vercel.');
+      } else {
+        setError(err.response?.data?.msg || 'Lỗi server: ' + (err.message || 'Không xác định'));
+      }
     }
   };
 
